@@ -19,7 +19,7 @@ def main():
             my_logger.exception("func getData HTTP Error: " + e.reason)
         except urllib2.URLError as e:
             print "URLError Code:", str(e.reason)
-            my_logger.exception("func getData URL Error code: " + e.reason)
+            my_logger.exception('{0} {1}'.format("func getData URL Error code: ", e.reason))
         else:
             code = webUrl.getcode()
             if code == 200:
@@ -57,6 +57,7 @@ def main():
                         eCount += 1
                         my_logger.info("Error adding features" + " - " + item['error'].get('description') + str(eCount))
                 my_logger.info(str(sCount) + " features successfully added, " + str(eCount) + " errors.")
+                print str(sCount) + " features successfully added, " + str(eCount) + " errors."
             else:
                 if "message" in response["error"]:
                     my_logger.info("Error adding features" + " - " + response['error'].get('message'))
@@ -70,7 +71,7 @@ def main():
         #urls
         getCtyUrl = 'https://eagle-i.doe.gov/api/outages/countymax24hoursummary?state=WI&eiApiKey=' + key
         getStUrl = 'https://eagle-i.doe.gov/api/outages/statemax24hoursummary?state=WI&eiApiKey=' + key
-        postUrl = 'https://___________________EagleI_Power_Outage/FeatureServer/0/applyEdits?token=' + token
+        postUrl = 'https://widmamaps.us/dma/rest/services/WEM_Private/EagleI_Power_Outage/FeatureServer/0/applyEdits?token=' + token
         #get data via function calls
         data = getData(getCtyUrl)
         state = getData(getStUrl)
